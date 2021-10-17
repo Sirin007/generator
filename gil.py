@@ -16,6 +16,5 @@ for i in range(5):
 
 if __name__ == "__main__":
     for i in range(5):
-        print('process')
         proc = Process(target=a)
         proc.start()
