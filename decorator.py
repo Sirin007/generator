@@ -1,3 +1,6 @@
+import time
+
+
 def deco(func):
     def wrapper(*args):
         for x in args:
@@ -14,15 +17,13 @@ def a(start, finish):
 a(1, 2)
 
 
-import time
-
 def deco_timing(func):
 
-    def wrapper(param,accuracy):
+    def wrapper(param, accuracy):
         start = time.perf_counter()
         func(param)
         end = time.perf_counter()
-        print('Время выполнения: {} секунд.'.format(round(end-start,accuracy)))
+        print('Время выполнения: {} секунд.'.format(round(end-start, accuracy)))
     return wrapper
 
 
@@ -30,7 +31,5 @@ def deco_timing(func):
 def dream(sec):
     time.sleep(sec)
 
-dream(5,10)
 
-
-
+dream(5, 10)
