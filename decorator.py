@@ -2,10 +2,12 @@ import time
 
 
 def deco(func):
-    def wrapper(*args):
-        for x in args:
-            print(x)
-        print(func(*args))
+    def wrapper(*args,**kwargs):
+        print(args)
+        print(kwargs)
+        result = func(*args, **kwargs)
+        print(result)
+        return result
     return wrapper
 
 
@@ -17,19 +19,21 @@ def a(start, finish):
 a(1, 2)
 
 
-def deco_timing(func):
+def deco_timing(accuracy):
+    def deco_timing_inside(func):
+        def wrapper(*args,**kwargs):
+            start = time.perf_counter()
+            result = func(*args,**kwargs)
+            end = time.perf_counter()
+            print('Время выполнения: {} секунд.'.format(round(end-start, accuracy)))
+            return result
+        return wrapper
+    return deco_timing_inside
 
-    def wrapper(param, accuracy):
-        start = time.perf_counter()
-        func(param)
-        end = time.perf_counter()
-        print('Время выполнения: {} секунд.'.format(round(end-start, accuracy)))
-    return wrapper
 
-
-@deco_timing
+@deco_timing(accuracy=2)
 def dream(sec):
     time.sleep(sec)
 
 
-dream(5, 10)
+dream(5)
